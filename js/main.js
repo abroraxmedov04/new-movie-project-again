@@ -134,6 +134,21 @@ function sort(arr) {
   });
 }
 
+function processMovieTitle(title, regex) {
+  let processedTitle =
+    title.length > 20 ? title.substring(0, 20) + "..." : title;
+
+  if (regex && regex.source !== "(?:)") {
+    processedTitle = processedTitle.replace(
+      regex,
+      (match) =>
+        `<mark class="d-inline-block p-0 bg-warning text-light rounded-2">${match}</mark>`
+    );
+  }
+
+  return processedTitle;
+}
+
 function renderMovies(arr, node, regex = "") {
   arr.forEach((movie) => {
     let cloneNode = elTemplateMovieCard.cloneNode(true);
@@ -144,18 +159,10 @@ function renderMovies(arr, node, regex = "") {
         : movie.title;
 
     // ? regex
-    if (regex.source != "(?:)" && regex) {
-      cloneNode.querySelector(".js-movie-title").innerHTML =
-        movie.title.replace(
-          regex,
-          (
-            match
-          ) => `<mark class="d-inline-block p-0 bg-warning text-light rounded-2">
-          ${match}</mark>`
-        );
-    } else {
-      cloneNode.querySelector(".js-movie-title").textContent = movie.title;
-    }
+    cloneNode.querySelector(".js-movie-title").innerHTML = processMovieTitle(
+      movie.title,
+      regex
+    );
 
     cloneNode.querySelector(".js-movie-year").textContent = movie.movie_year;
     cloneNode.querySelector(".js-movie-rating").textContent = movie.imdb_rating;
