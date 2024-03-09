@@ -134,9 +134,7 @@ function sort(arr) {
   });
 }
 
-
-
-function renderMovies(arr, node) {
+function renderMovies(arr, node, regex = "") {
   arr.forEach((movie) => {
     let cloneNode = elTemplateMovieCard.cloneNode(true);
     cloneNode.querySelector(".js-movie-image-card").src = movie.image_url;
@@ -144,6 +142,21 @@ function renderMovies(arr, node) {
       movie.title.length > 20
         ? movie.title.substring(0, 20) + "..."
         : movie.title;
+
+    // ? regex
+    if (regex.source != "(?:)" && regex) {
+      cloneNode.querySelector(".js-movie-title").innerHTML =
+        movie.title.replace(
+          regex,
+          (
+            match
+          ) => `<mark class="d-inline-block p-0 bg-warning text-light rounded-2">
+          ${match}</mark>`
+        );
+    } else {
+      cloneNode.querySelector(".js-movie-title").textContent = movie.title;
+    }
+
     cloneNode.querySelector(".js-movie-year").textContent = movie.movie_year;
     cloneNode.querySelector(".js-movie-rating").textContent = movie.imdb_rating;
     cloneNode.querySelector(".js-movie-runtime").textContent = getHourAndMin(
@@ -153,16 +166,6 @@ function renderMovies(arr, node) {
       .slice(0, 4)
       .join(", ");
     cloneNode.querySelector(".js-modal-btn").dataset.imdbId = movie.imdb_id;
-
-    // if (bookmarks.some((item) => item.title == movie.title)) {
-    //   cloneNode.querySelector(".js-bookmark-btn").textContent = "Bookmarked";
-    //   cloneNode.querySelector(".js-bookmark-btn").classList.add("bookmarked");
-    // } else {
-    //   cloneNode.querySelector(".js-bookmark-btn").textContent = "Bookmark";
-    //   cloneNode
-    //     .querySelector(".js-bookmark-btn")
-    //     .classList.remove("bookmarked");
-    // }
     cloneNode.querySelector(".js-bookmark-btn").dataset.imdbId = movie.imdb_id;
     fragment.appendChild(cloneNode);
   });
@@ -191,7 +194,7 @@ function renderSearchedData(event) {
 
   if (resultSearch.length > 0) {
     if (elsortInputField.value !== "choose") sort(resultSearch);
-    renderMovies(resultSearch, elMovieListWr);
+    renderMovies(resultSearch, elMovieListWr, regex);
   } else {
     console.log("not found");
   }
