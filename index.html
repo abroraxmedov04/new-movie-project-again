@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./css/main.css" />
+  <title>Movies again</title>
+</head>
+
+<body class="bg-slate-900">
+
+
+  <header class="p-10 bg-slate-700">
+    <form class="js-form flex gap-[50px] container mx-auto">
+      <!--? search -->
+      <input type="text" placeholder="Search movie..."
+        class="js-search-movie-input rounded w-[250px] px-3 py-1 outline-none shadow-md" />
+      <!-- ? category -->
+      <select class="js-category rounded w-[200px] px-3 py-1 outline-none shadow-md">
+        <option value="all">All</option>
+      </select>
+      <!-- ?min year  -->
+      <input type="number" placeholder="Enter a min year..."
+        class="js-min-year-search rounded w-[250px] px-3 py-1 outline-none shadow-md" />
+      <!-- ? max year -->
+      <input type="number" placeholder="Enter a max year..."
+        class="js-max-year-search  rounded w-[250px] px-3 py-1 outline-none shadow-md" />
+      <!-- ? sort -->
+      <select class="js-sort rounded w-[200px] px-3 py-1 outline-none shadow-md">
+        <option value="choose">Sort by ...</option>
+        <option value="a-z">A-Z</option>
+        <option value="z-a">Z-A</option>
+        <option value="new-to-old-year">New-to-old-year</option>
+        <option value="old-to-new-year">Old-to-New-year</option>
+        <option value="top-rating">Top rating</option>
+        <option value="small-rating">Small-rating</option>
+
+
+
+      </select>
+      <!-- ? button submit -->
+      <button
+        class="js-form-btn bg-slate-400 py-1 px-5 rounded-md font-bold text-white shadow-md hover:bg-slate-50 hover:text-black hover:transition-all hover:delay-[100]">
+        Search
+      </button>
+    </form>
+  </header>
+
+
+  <main>
+    <section>
+      <div class="container mx-auto px-[15px]">
+        <ul class="js-movie-list grid grid-cols-4 gap-4 mt-[40px]">
+        </ul>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- ? movie - templaate -->
+  <template class="js-movie-card">
+    <li class="movie-card bg-slate-600 rounded-md">
+      <img src="https://placehold.co/600x400" alt="movie-image-card"
+        class="js-movie-image-card w-full h-[200px] rounded-t-md" />
+      <div class="js-movie-info text-white p-2">
+        <h2 class="js-movie-title font-bold text-2xl">lorem15sdf</h2>
+        <ul class="js-movie-data-info flex gap-5 mt-2 mb-2">
+          <li>
+            <i class="fa-solid fa-calendar-days text-blue-500"></i>
+            <time class="js-movie-year ml-1">2017</time>
+          </li>
+          <li>
+            <i class="fa-solid fa-star text-yellow-400"></i>
+            <time class="js-movie-rating ml-1">7.1</time>
+          </li>
+          <li>
+            <i class="fa-regular fa-clock"></i>
+            <time class="js-movie-runtime ml-1">1 hr 12min</time>
+          </li>
+        </ul>
+        <span class="js-movie-genres font-bold">Comedy, Drama</span>
+        <div class="btn-group flex flex-col justify-center gap-2 mt-4 text-xl font-bold">
+          <button class="js-modal-btn block w-full bg-blue-600 rounded-md py-2">
+            Learn More
+          </button>
+          <button class="js-bookmark-btn block w-full bg-orange-600 rounded-md py-2">
+            Bookmark
+          </button>
+        </div>
+      </div>
+    </li>
+  </template>
+
+
+  <!-- Modal -->
+  <div
+    class="hidden js-modal-learn-more fixed inset-0 z-50 items-center  justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none mt-[7%] mx-auto">
+    <div class="relative w-auto max-w-[70%] mx-auto my-6">
+      <div class="modal-content bg-white rounded-lg shadow-lg">
+        <div class="flex items-center justify-between p-5 border-b border-gray-300">
+          <h3 class="text-lg font-semibold">More about movie</h3>
+          <button id="closeModalButton" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="p-5 bg-white flex gap-5">
+          <div>
+            <iframe class="js-frame-modal" width="560" height="315"
+              src="https://www.youtube-nocookie.com/embed/erLk59H86ww" title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="modal-content flex flex-col gap-4">
+            <h2 class="movie-title-full-modal text-2xl font-bold">Iron man for the best</h2>
+            <ul class="js-movie-data-info flex gap-5 mt-2 mb-2">
+              <li>
+                <i class="fa-solid fa-calendar-days text-blue-500"></i>
+                <time class="js-movie-year-modal ml-1">2017</time>
+              </li>
+              <li>
+                <i class="fa-solid fa-star text-yellow-400"></i>
+                <time class="js-movie-rating-modal ml-1">7.1</time>
+              </li>
+              <li>
+                <i class="fa-regular fa-clock"></i>
+                <time class="js-movie-runtime-modal ml-1">1 hr 12min</time>
+              </li>
+            </ul>
+            <p class="js-modal-summary">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis aliquam alias illo. Itaque quae,
+              repellendus debitis cumque corrupti id in reprehenderit, quo accusamus optio nihil numquam, ullam iste
+              magnam maiores tenetur quaerat! Architecto alias repellendus at labore magni ullam eaque soluta corrupti.
+              Est eveniet, provident vel quae expedita sequi nam quas? Nisi veniam beatae laborum.
+            </p>
+            <div class="lin-movie flex items-center gap-2">
+              <a class="js-movie-link-modal block" target="_blank" href="#">IMDb</a>
+              <i class="fa-solid fa-link text-blue-500 block"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ? off-canvas  -->
+
+<button class="open-bookmark-modal p-2 fixed bg-white top-[80px] right-[15px] rounded-md">
+  <i class="fa-regular fa-bookmark"></i>
+</button>
+
+  <!-- Off-Canvas Menu -->
+  <div id="offCanvas" class="hidden offcanvas fixed top-0 right-0 w-[400px] h-full bg-white shadow-lg z-50 overflow-y-scroll">
+    <div class="p-4">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h1 class="text-lg font-bold">Bookmark Movies</h1>
+        </div>
+        <button id="closeButton" class="rounded-md bg-gray-200 hover:bg-gray-300">
+          <i class="fas fa-times text-gray-800"></i>
+        </button>
+      </div>
+      <ul class="js-bookmarks-wr flex flex-col gap-2">  
+      </ul>
+    </div>
+  </div>
+
+
+  <template class="js-bookmark-cards-template"> 
+    <li class="bookmarks-card bg-slate-600 rounded-md shadow-md">
+      <img src="https://placehold.co/600x400" alt="movie-image-card"
+        class="js-bookmarks-image-card w-full h-[200px] rounded-t-md" />
+      <div class="js-bookmark-info text-white p-2">
+        <h2 class="js-bookmark-title font-bold text-2xl">lorem15sdf</h2>
+      </div>
+      <button class="bookmark-delete-btn bg-red-500 block w-full text-white py-2 rounded-md text-xl font-bold shadow-md">Delete</button>
+    </li>
+  </template>
+
+</body>
+<footer></footer>
+<script src="./js/movies.js"></script>
+<script src="./js/main.js"></script>
+</body>
+
+</html>
